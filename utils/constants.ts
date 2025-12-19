@@ -1,4 +1,4 @@
-export const API_URL = 'http://localhost:5000/api'; // Change to local IP for physical device
+export const API_URL = 'http://192.168.29.15:5001/api';
 
 export const COLORS = {
     primary: '#2874F0',

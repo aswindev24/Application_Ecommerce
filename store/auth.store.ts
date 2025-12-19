@@ -2,13 +2,14 @@ import { create } from 'zustand';
 import * as SecureStore from 'expo-secure-store';
 import api from '../api/axios';
 
-interface AuthState {
+export interface AuthState {
     user: any | null;
     token: string | null;
     isLoading: boolean;
     login: (data: any) => Promise<void>;
     logout: () => Promise<void>;
     loadUser: () => Promise<void>;
+    changePassword: (data: any) => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -42,5 +43,8 @@ export const useAuthStore = create<AuthState>((set) => ({
         } catch (error) {
             set({ isLoading: false });
         }
+    },
+    changePassword: async (passwords) => {
+        await api.put('/auth/change-password', passwords);
     },
 }));

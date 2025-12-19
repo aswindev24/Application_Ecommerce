@@ -4,13 +4,13 @@ import { Stack, useRouter } from 'expo-router';
 import Input from '../../components/common/Input';
 import Button from '../../components/common/Button';
 import { COLORS } from '../../utils/constants';
-import { useAuthStore } from '../../store/auth.store';
+import { useAuthStore, AuthState } from '../../store/auth.store';
 
 export default function LoginScreen() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
-    const login = useAuthStore((state) => state.login);
+    const login = useAuthStore((state: AuthState) => state.login);
     const router = useRouter();
 
     const handleLogin = async () => {
@@ -24,6 +24,15 @@ export default function LoginScreen() {
             await login({ email, password });
             // Navigation is handled by _layout.tsx based on token state
         } catch (error: any) {
+            console.error('Login error:', error);
+            if (error.response) {
+                console.error('Error response:', error.response.data);
+                console.error('Error status:', error.response.status);
+            } else if (error.request) {
+                console.error('Error request:', error.request);
+            } else {
+                console.error('Error message:', error.message);
+            }
             Alert.alert('Login Failed', error.response?.data?.message || 'An error occurred');
         } finally {
             setLoading(false);
