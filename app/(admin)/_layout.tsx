@@ -86,6 +86,18 @@ export default function AdminLayout() {
                     title: 'Change Password',
                 }}
             />
+            <Stack.Screen
+                name="carousel/index"
+                options={{
+                    title: 'Manage Carousel',
+                }}
+            />
+            <Stack.Screen
+                name="carousel/manage"
+                options={{
+                    title: 'Manage Offer',
+                }}
+            />
         </Stack>
     );
 }

@@ -3,18 +3,32 @@ import api from '../api/axios';
 import { Alert } from 'react-native';
 
 export interface Order {
+    start_id: string; // generated ID is usually _id
     _id: string;
-    user: string;
-    orderItems: any[];
-    shippingAddress: any;
+    user: { _id: string; name: string; email: string };
+    orderItems: {
+        name: string;
+        qty: number;
+        image: string;
+        price: number;
+        product: string;
+        _id: string;
+    }[];
+    customerInfo: {
+        name: string;
+        email: string;
+        phone: string;
+        address: string;
+    };
     paymentMethod: string;
     totalPrice: number;
     isPaid: boolean;
     paidAt?: string;
-    isDelivered: boolean;
+    deliveryStatus?: string; // Sometimes used alternatively
     deliveredAt?: string;
-    status: 'Pending' | 'Confirmed' | 'Shipped' | 'Delivered' | 'Cancelled';
+    status: 'Pending' | 'Processing' | 'Packed' | 'Shipped' | 'Delivered' | 'Cancelled';
     createdAt: string;
+    updatedAt: string;
 }
 
 interface OrderState {
